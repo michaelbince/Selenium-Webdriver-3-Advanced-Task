@@ -1,7 +1,9 @@
 package pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -46,5 +48,24 @@ public abstract class BasePage {
                 .ignoring(NoSuchElementException.class);
     }
 
+    public void selectCheckBox(WebElement checkbox){
+        if (!checkbox.isSelected()){
+            forceClick(checkbox);
+        }
+    }
+
+    public void moveToElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
+    }
+
+    public  void forceClick(WebElement element) {
+        try {
+            JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+            jsExecutor.executeScript("arguments[0].click();", element);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed clicking element using JavaScriptExecutor: " + e.getMessage(), e);
+        }
+    }
 
 }
