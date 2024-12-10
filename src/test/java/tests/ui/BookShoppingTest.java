@@ -57,12 +57,16 @@ public class BookShoppingTest extends BaseTest {
         searchComponentPage.search(bookName);
         searchedResultsPage.selectEnglishLanguageFilter();
         searchedResultsPage.clickBookTitleByIndex(1);
+
         Assert.assertTrue(bookPage.getBookAddedTittle().contains(bookName),
                 "Book title does not contain the expected book searched: "+ bookName);
         bookPage.addBookToCart();
+
         searchComponentPage.clickCartButton();
+
         Assert.assertTrue(shoppingCartPage.getBookInCartTittle().contains(bookName),
                 "Book title does not contain the expected book searched: "+ bookName);
+
         shoppingCartPage.proceedToCheckoutWithAddedBooks();
     }
 }

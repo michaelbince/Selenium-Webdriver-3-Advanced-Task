@@ -54,6 +54,11 @@ public abstract class BasePage {
         actions.moveToElement(element).perform();
     }
 
+    public void scrollToElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.scrollToElement(element).perform();
+    }
+
     public  void forceClick(WebElement element) {
         try {
             JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;

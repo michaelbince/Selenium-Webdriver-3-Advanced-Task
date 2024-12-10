@@ -45,6 +45,7 @@ public class SearchedResultsPage extends BasePage {
                     bookTitles.size());
         }
         WebElement bookToClick = bookTitles.get(index - 1);
+        scrollToElement(bookToClick);
         waitForClickAbilityOf(bookToClick);
         bookToClick.click();
     }
