@@ -1,0 +1,6 @@
+{
+  "validBook":{
+    "bookName": "Thinking in Java",
+    "minimumBooksShouldBeFound": 3
+  }
+}

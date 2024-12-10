@@ -7,6 +7,7 @@ import pages.BookPage;
 import pages.SearchComponentPage;
 import pages.SearchedResultsPage;
 import pages.ShoppingCartPage;
+import utils.TestDataProvider;
 
 import java.util.List;
 
@@ -25,16 +26,20 @@ public class BookShoppingTest extends BaseTest {
         shoppingCartPage = new ShoppingCartPage();
     }
 
-    @Test
-    public void verifySearchedResultsAreRelatedToTheSearching(){
-        searchComponentPage.search("Thinking in Java");
-        long numberOfBooksByTitle = searchedResultsPage.numberOfBooksByTitle("Thinking in Java");
-        Assert.assertTrue(numberOfBooksByTitle >= 3, "The number should be at least "+ 3 + " but i was " + numberOfBooksByTitle);
+    @Test(description = "verify the searched results are related to the book searched",
+            dataProvider = "validBook",
+            dataProviderClass = TestDataProvider.class)
+    public void verifySearchedResultsAreRelatedToTheSearching(String bookName, int minimumBooksShouldBeFound){
+        searchComponentPage.search(bookName);
+        long numberOfBooksByTitle = searchedResultsPage.numberOfBooksByTitle(bookName);
+        Assert.assertTrue(numberOfBooksByTitle >= minimumBooksShouldBeFound, "The number should be at least "+ minimumBooksShouldBeFound + " but it was " + numberOfBooksByTitle);
     }
 
-    @Test
-    public void verifySearchedResultsChangeAfterApplyingFilters(){
-        searchComponentPage.search("Thinking in Java");
+    @Test(description = "Verify searched results are different after some filter were applied",
+            dataProvider = "validBook",
+            dataProviderClass = TestDataProvider.class)
+    public void verifySearchedResultsChangeAfterApplyingFilters(String bookName, int minimumBooksShouldBeFound){
+        searchComponentPage.search(bookName);
 
         List<String> firstSearchedResults = searchedResultsPage.getBookTitles();
 
@@ -45,17 +50,19 @@ public class BookShoppingTest extends BaseTest {
         Assert.assertFalse(firstSearchedResults.equals(secondSearchedResults), "The book titles should be different");
     }
 
-    @Test
-    public void verifyBookIsAddedToTheBasket(){
-        searchComponentPage.search("Thinking in Java");
+    @Test(description = "Verify book selected was added to the basket",
+            dataProvider = "validBook",
+            dataProviderClass = TestDataProvider.class)
+    public void verifyBookIsAddedToTheBasket(String bookName, int minimumBooksShouldBeFound){
+        searchComponentPage.search(bookName);
         searchedResultsPage.selectEnglishLanguageFilter();
         searchedResultsPage.clickBookTitleByIndex(1);
-        Assert.assertTrue(bookPage.getBookAddedTittle().contains("Thinking in Java"),
-                "Book title does not contain the expected book searched: 'Thinking in Java'.");
+        Assert.assertTrue(bookPage.getBookAddedTittle().contains(bookName),
+                "Book title does not contain the expected book searched: "+ bookName);
         bookPage.addBookToCart();
         searchComponentPage.clickCartButton();
-        Assert.assertTrue(shoppingCartPage.getBookInCartTittle().contains("Thinking in Java"),
-                "Book title does not contain the expected book searched: 'Thinking in Java'.");
+        Assert.assertTrue(shoppingCartPage.getBookInCartTittle().contains(bookName),
+                "Book title does not contain the expected book searched: "+ bookName);
         shoppingCartPage.proceedToCheckoutWithAddedBooks();
     }
 }
