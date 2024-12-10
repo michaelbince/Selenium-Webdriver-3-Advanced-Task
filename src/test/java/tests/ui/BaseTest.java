@@ -5,6 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+import utils.BrowserDataStorage;
 import utils.DriverManager;
 
 public class BaseTest {
@@ -17,7 +18,8 @@ public class BaseTest {
     public void setUp(@Optional("chrome") String browser){
         DriverManager.setDriver(browser);
         driver = DriverManager.getDriver();
-        driver.get(baseURL);
+        driver.navigate().to(baseURL);
+        BrowserDataStorage.clearAllData(driver);
     }
 
     @AfterMethod
