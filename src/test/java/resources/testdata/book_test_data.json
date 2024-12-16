@@ -3,6 +3,6 @@
     "bookName": "Thinking in Java",
     "minimumBooksShouldBeFound": 3,
     "kindleFormat": "Kindle",
-    "PaperbackFormat": "Paperback"
+    "paperbackFormat": "Paperback"
   }
 }

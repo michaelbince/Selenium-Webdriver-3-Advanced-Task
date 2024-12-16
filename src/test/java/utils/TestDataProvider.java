@@ -11,7 +11,7 @@ public class TestDataProvider {
     private static final String BOOK_NAME = "bookName";
     private static final String MINIMUM_BOOKS_SHOULD_BE_FOUND = "minimumBooksShouldBeFound";
     private static final String KINDLE_FORMAT = "kindleFormat";
-    private static final String PAPERBACK_FORMAT = "PaperbackFormat";
+    private static final String PAPERBACK_FORMAT = "paperbackFormat";
 
 
 
