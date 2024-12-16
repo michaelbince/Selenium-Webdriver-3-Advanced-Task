@@ -87,7 +87,27 @@ public class BookShoppingTest extends BaseTest {
 
         searchedResultsPage.clearAllFilters();
 
+        searchedResultsPage.selectPaperbackFilter();
+        Assert.assertTrue(searchedResultsPage.isAllBooksOfFormatForTheTwoAvailable(paperbackFormat), "All books are not of format: "+
+                paperbackFormat + " Books: "+ searchedResultsPage.getPairsOfBookFormatsForEachOne());
+
+        searchedResultsPage.clearAllFilters();
+
         searchedResultsPage.clickBookTitleByIndex(1);
+
+        Assert.assertTrue(bookPage.getBookAddedTittle().contains(bookName),
+                "Book title does not contain the expected book searched: "+ bookName);
+        bookPage.addBookToCart();
+
+        driver.navigate().back();
+
+        Assert.assertTrue(bookPage.getBookAddedTittle().contains(bookName),
+                "Book title does not contain the expected book searched: "+ bookName);
+        bookPage.addBookToCart();
+
+        driver.navigate().back();
+
+        searchedResultsPage.clickBookTitleByIndex(2);
 
         Assert.assertTrue(bookPage.getBookAddedTittle().contains(bookName),
                 "Book title does not contain the expected book searched: "+ bookName);
