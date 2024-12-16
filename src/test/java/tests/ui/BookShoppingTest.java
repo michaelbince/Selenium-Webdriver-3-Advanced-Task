@@ -9,6 +9,7 @@ import pages.SearchedResultsPage;
 import pages.ShoppingCartPage;
 import utils.TestDataProvider;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class BookShoppingTest extends BaseTest {
@@ -83,6 +84,22 @@ public class BookShoppingTest extends BaseTest {
         searchedResultsPage.selectKindleFilter();
         Assert.assertTrue(searchedResultsPage.isAllBooksOfFormatForTheTwoAvailable(kindleFormat), "All books are not of format: "+
                 kindleFormat + " Books: "+ searchedResultsPage.getPairsOfBookFormatsForEachOne());
+
+        searchedResultsPage.clearAllFilters();
+
+        searchedResultsPage.clickBookTitleByIndex(1);
+
+        Assert.assertTrue(bookPage.getBookAddedTittle().contains(bookName),
+                "Book title does not contain the expected book searched: "+ bookName);
+        bookPage.addBookToCart();
+
+        searchComponentPage.clickCartButton();
+
+        Assert.assertTrue(shoppingCartPage.getBookInCartTittle().contains(bookName),
+                "Book title does not contain the expected book searched: "+ bookName);
+
+        shoppingCartPage.proceedToCheckoutWithAddedBooks();
+
 
     }
 

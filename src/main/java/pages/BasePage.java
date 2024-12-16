@@ -59,17 +59,25 @@ public abstract class BasePage {
         actions.moveToElement(element).perform();
     }
 
+    public void clickElementAfterRefresh(WebElement element) {
+        Actions actions = new Actions(driver);
+        refresh();
+        wait.until(ExpectedConditions.refreshed(
+                ExpectedConditions.visibilityOf(element)
+        ));
+        actions.moveToElement(element).click().perform();
+    }
+
     public void clickElementWhenFound(WebElement element) {
         Actions actions = new Actions(driver);
 
         try {
             actions.moveToElement(element).click().perform();
         } catch (StaleElementReferenceException e) {
-            refresh();
-            wait.until(ExpectedConditions.refreshed(
-                    ExpectedConditions.visibilityOf(element)
-            ));
-            actions.moveToElement(element).click().perform();
+            clickElementAfterRefresh(element);
+        }
+        catch (NoSuchElementException e) {
+            clickElementAfterRefresh(element);
         }
 
     }

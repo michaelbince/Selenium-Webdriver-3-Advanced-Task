@@ -109,8 +109,14 @@ public class SearchedResultsPage extends BasePage {
 
         for (int index = 0; index < generalFormatOfBooks.size(); index += 2) {
             int nextBook = index + 1;
+            waitForVisibilityOf(generalFormatOfBooks.get(index));
             String firstBook = generalFormatOfBooks.get(index).getText();
-            String secondBook = (nextBook < generalFormatOfBooks.size()) ? generalFormatOfBooks.get(nextBook).getText() : null;
+            String secondBook = null;
+
+            if (nextBook < generalFormatOfBooks.size()){
+                waitForVisibilityOf(generalFormatOfBooks.get(nextBook));
+                secondBook = generalFormatOfBooks.get(nextBook).getText();
+            }
             textPairs.add(new String[]{firstBook, secondBook});
         }
 
