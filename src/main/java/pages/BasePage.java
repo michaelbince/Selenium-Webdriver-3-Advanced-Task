@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -25,6 +26,10 @@ public abstract class BasePage {
     public BasePage() {
         this.driver = DriverManager.getDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAIT_IN_SECONDS));
+        refresh();
+    }
+
+    public void refresh() {
         PageFactory.initElements(driver, this);
     }
 
@@ -52,6 +57,21 @@ public abstract class BasePage {
     public void moveToElement(WebElement element) {
         Actions actions = new Actions(driver);
         actions.moveToElement(element).perform();
+    }
+
+    public void clickElementWhenFound(WebElement element) {
+        Actions actions = new Actions(driver);
+
+        try {
+            actions.moveToElement(element).click().perform();
+        } catch (StaleElementReferenceException e) {
+            refresh();
+            wait.until(ExpectedConditions.refreshed(
+                    ExpectedConditions.visibilityOf(element)
+            ));
+            actions.moveToElement(element).click().perform();
+        }
+
     }
 
     public void scrollToElement(WebElement element) {

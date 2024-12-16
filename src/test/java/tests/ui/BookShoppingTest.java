@@ -69,4 +69,21 @@ public class BookShoppingTest extends BaseTest {
 
         shoppingCartPage.proceedToCheckoutWithAddedBooks();
     }
+
+    @Test(description = "Verify book selected was added to the basket - FULL FLOW",
+            dataProvider = "validBookWithAdditionalOrdering",
+            dataProviderClass = TestDataProvider.class)
+    public void verifyBookIsAddedToTheBasketFullFlow(String bookName, int minimumBooksShouldBeFound, String kindleFormat, String paperbackFormat){
+        searchComponentPage.search(bookName);
+
+        long numberOfBooksByTitle = searchedResultsPage.numberOfBooksByTitle(bookName);
+        Assert.assertTrue(numberOfBooksByTitle >= minimumBooksShouldBeFound,
+                "The number should be at least "+ minimumBooksShouldBeFound + " but it was " + numberOfBooksByTitle);
+
+        searchedResultsPage.selectKindleFilter();
+        Assert.assertTrue(searchedResultsPage.isAllBooksOfFormatForTheTwoAvailable(kindleFormat), "All books are not of format: "+
+                kindleFormat + " Books: "+ searchedResultsPage.getPairsOfBookFormatsForEachOne());
+
+    }
+
 }
