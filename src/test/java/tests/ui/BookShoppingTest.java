@@ -3,10 +3,7 @@ package tests.ui;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.BookPage;
-import pages.SearchComponentPage;
-import pages.SearchedResultsPage;
-import pages.ShoppingCartPage;
+import pages.*;
 import utils.TestDataProvider;
 
 import java.util.Arrays;
@@ -17,6 +14,7 @@ public class BookShoppingTest extends BaseTest {
     private SearchedResultsPage searchedResultsPage;
     private BookPage bookPage;
     private ShoppingCartPage shoppingCartPage;
+    private SignInPage signInPage;
 
 
     @BeforeMethod
@@ -25,6 +23,8 @@ public class BookShoppingTest extends BaseTest {
         searchedResultsPage = new SearchedResultsPage();
         bookPage = new BookPage();
         shoppingCartPage = new ShoppingCartPage();
+        signInPage = new SignInPage();
+
     }
 
     @Test(description = "verify the searched results are related to the book searched",
@@ -100,7 +100,7 @@ public class BookShoppingTest extends BaseTest {
 
         shoppingCartPage.proceedToCheckoutWithAddedBooks();
 
-
+        Assert.assertTrue(signInPage.IsSignInPageTitleDisplayed(), "Sign In page is not displayed");
     }
 
 }
