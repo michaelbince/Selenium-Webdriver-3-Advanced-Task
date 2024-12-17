@@ -73,10 +73,7 @@ public abstract class BasePage {
 
         try {
             actions.moveToElement(element).click().perform();
-        } catch (StaleElementReferenceException e) {
-            clickElementAfterRefresh(element);
-        }
-        catch (NoSuchElementException e) {
+        } catch (StaleElementReferenceException | NoSuchElementException e) {
             clickElementAfterRefresh(element);
         }
 

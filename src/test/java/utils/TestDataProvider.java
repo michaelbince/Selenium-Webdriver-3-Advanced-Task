@@ -3,6 +3,7 @@ package utils;
 import org.testng.annotations.DataProvider;
 import java.util.Map;
 
+@SuppressWarnings("unchecked")
 public class TestDataProvider {
 
     private static final String TEST_DATA_FILE = "src/test/java/resources/testdata/book_test_data.json";

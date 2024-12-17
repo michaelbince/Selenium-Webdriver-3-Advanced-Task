@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import pages.*;
 import utils.TestDataProvider;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class BookShoppingTest extends BaseTest {
@@ -48,7 +47,7 @@ public class BookShoppingTest extends BaseTest {
 
         List<String> secondSearchedResults = searchedResultsPage.getBookTitles();
 
-        Assert.assertFalse(firstSearchedResults.equals(secondSearchedResults), "The book titles should be different");
+        Assert.assertNotEquals(secondSearchedResults, firstSearchedResults, "The book titles should be different");
     }
 
     @Test(description = "Verify book selected was added to the basket",
