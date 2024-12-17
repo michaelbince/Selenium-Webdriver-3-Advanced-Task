@@ -12,6 +12,7 @@ public class TestDataProvider {
     private static final String MINIMUM_BOOKS_SHOULD_BE_FOUND = "minimumBooksShouldBeFound";
     private static final String KINDLE_FORMAT = "kindleFormat";
     private static final String PAPERBACK_FORMAT = "paperbackFormat";
+    private static final String BOOK_ABOUT = "bookAbout";
 
 
 
@@ -30,7 +31,8 @@ public class TestDataProvider {
                 {book1.get(BOOK_NAME),
                         book1.get(MINIMUM_BOOKS_SHOULD_BE_FOUND),
                         book1.get(KINDLE_FORMAT),
-                        book1.get(PAPERBACK_FORMAT)}
+                        book1.get(PAPERBACK_FORMAT),
+                        book1.get(BOOK_ABOUT)}
         };
     }
 

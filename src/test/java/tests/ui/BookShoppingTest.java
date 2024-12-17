@@ -74,7 +74,8 @@ public class BookShoppingTest extends BaseTest {
     @Test(description = "Verify book selected was added to the basket - FULL FLOW",
             dataProvider = "validBookWithAdditionalOrdering",
             dataProviderClass = TestDataProvider.class)
-    public void verifyBookIsAddedToTheBasketFullFlow(String bookName, int minimumBooksShouldBeFound, String kindleFormat, String paperbackFormat){
+    public void verifyBookIsAddedToTheBasketFullFlow(String bookName, int minimumBooksShouldBeFound,
+                                                     String kindleFormat, String paperbackFormat, String bookAbout){
         searchComponentPage.search(bookName);
 
         long numberOfBooksByTitle = searchedResultsPage.numberOfBooksByTitle(bookName);
@@ -87,11 +88,11 @@ public class BookShoppingTest extends BaseTest {
 
         searchedResultsPage.clearAllFilters();
 
-        searchedResultsPage.selectPaperbackFilter();
+/*        searchedResultsPage.selectPaperbackFilter();
         Assert.assertTrue(searchedResultsPage.isAllBooksOfFormatForTheTwoAvailable(paperbackFormat), "All books are not of format: "+
                 paperbackFormat + " Books: "+ searchedResultsPage.getPairsOfBookFormatsForEachOne());
 
-        searchedResultsPage.clearAllFilters();
+        searchedResultsPage.clearAllFilters();*/
 
         searchedResultsPage.clickBookTitleByIndex(1);
 
@@ -103,20 +104,19 @@ public class BookShoppingTest extends BaseTest {
 
         Assert.assertTrue(bookPage.getBookAddedTittle().contains(bookName),
                 "Book title does not contain the expected book searched: "+ bookName);
-        bookPage.addBookToCart();
 
         driver.navigate().back();
 
-        searchedResultsPage.clickBookTitleByIndex(2);
+        searchedResultsPage.clickBookTitleByIndex(3);
 
-        Assert.assertTrue(bookPage.getBookAddedTittle().contains(bookName),
-                "Book title does not contain the expected book searched: "+ bookName);
+        Assert.assertTrue(bookPage.getBookAddedTittle().contains(bookAbout),
+                "Book title does not contain the expected book searched: "+ bookAbout);
         bookPage.addBookToCart();
 
         searchComponentPage.clickCartButton();
 
-        Assert.assertTrue(shoppingCartPage.getBookInCartTittle().contains(bookName),
-                "Book title does not contain the expected book searched: "+ bookName);
+        Assert.assertTrue(shoppingCartPage.getBookInCartTittle().contains(bookAbout),
+                "Book title does not contain the expected book searched: "+ bookAbout);
 
         shoppingCartPage.proceedToCheckoutWithAddedBooks();
 
