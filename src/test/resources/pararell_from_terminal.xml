@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="DynamicParallelExecution" parallel="tests" thread-count="2">
+<suite name="DynamicParallelExecution" parallel="methods" thread-count="2">
     <test name="DynamicBrowserTest">
         <parameter name="browser" value="${browser}"/>
         <classes>
