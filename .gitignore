@@ -74,3 +74,10 @@ node_modules/
 
 # Environment files #
 .env
+
+# Gradle
+.gradle/
+build/
+
+# Gradle Wrapper
+.gradle-wrapper/

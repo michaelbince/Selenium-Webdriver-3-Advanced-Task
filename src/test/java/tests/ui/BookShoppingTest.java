@@ -28,7 +28,8 @@ public class BookShoppingTest extends BaseTest {
 
     @Test(description = "verify the searched results are related to the book searched",
             dataProvider = "validBook",
-            dataProviderClass = TestDataProvider.class)
+            dataProviderClass = TestDataProvider.class,
+            groups = "smoke")
     public void verifySearchedResultsAreRelatedToTheSearching(String bookName, int minimumBooksShouldBeFound){
         searchComponentPage.search(bookName);
         long numberOfBooksByTitle = searchedResultsPage.numberOfBooksByTitle(bookName);
