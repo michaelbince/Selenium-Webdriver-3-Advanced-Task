@@ -1,0 +1,18 @@
+{
+  "cartTests": {
+    "createCart": {
+      "expectedStatusCode": 201,
+      "jsonSchema": "testdata/create_cart_schema.json"
+    },
+    "addProduct": {
+      "productCode": "3572486",
+      "quantity": 2,
+      "expectedStatusCode": 200,
+      "responseAssertions": {
+        "expectedContentType": "application/json",
+        "expectedQuantity": 2,
+        "expectedProductCode": "3572486"
+      }
+    }
+  }
+}
