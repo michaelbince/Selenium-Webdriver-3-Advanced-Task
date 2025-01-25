@@ -3,13 +3,13 @@
     <test name="Chrome Test">
         <parameter name="browser" value="chrome" />
         <classes>
-<!--            <class name="tests.ui." />-->
+            <class name="tests.ui.BookShoppingTest"/>
         </classes>
     </test>
     <test name="Firefox Test">
         <parameter name="browser" value="firefox" />
         <classes>
-<!--            <class name="tests.ui." />-->
+        <class name="tests.ui.BookShoppingTest"/>
         </classes>
     </test>
 </suite>

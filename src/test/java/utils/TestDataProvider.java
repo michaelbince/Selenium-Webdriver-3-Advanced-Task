@@ -6,7 +6,7 @@ import java.util.Map;
 @SuppressWarnings("unchecked")
 public class TestDataProvider {
 
-    private static final String TEST_DATA_FILE = "src/test/java/resources/testdata/book_test_data.json";
+    private static final String TEST_DATA_FILE = "src/test/resources/testdata/book_test_data.json";
     private static final Map<String, Object> testData = TestDataLoader.loadTestData(TEST_DATA_FILE);
     private static final String BOOK1 = "validBook";
     private static final String BOOK_NAME = "bookName";
