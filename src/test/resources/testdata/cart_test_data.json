@@ -6,6 +6,7 @@
     },
     "addProduct": {
       "productCode": "3572486",
+      "productName": "NIVEA 2-In-1 Express Shampoo & Conditioner",
       "quantity": 2,
       "expectedStatusCode": 200,
       "responseAssertions": {

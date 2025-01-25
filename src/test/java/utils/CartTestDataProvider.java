@@ -51,4 +51,20 @@ public class CartTestDataProvider {
                 }
         };
     }
+
+    @DataProvider(name = "addProductTestDataToVerifyFromUI")
+    public static Object[][] provideAddProductToVerifyFromUITestData() {
+        Map<String, Object> cartTests = (Map<String, Object>) testData.get(CART_TESTS);
+        Map<String, Object> addProductData = (Map<String, Object>) cartTests.get(ADD_PRODUCT);
+
+        return new Object[][]{
+                {
+                        addProductData.get("productCode").toString(),
+                        addProductData.get("productName").toString(),
+                        Integer.parseInt(addProductData.get("quantity").toString()),
+                        Integer.parseInt(addProductData.get("expectedStatusCode").toString()),
+                        addProductData.get("responseAssertions") != null ? (Map<String, Object>) addProductData.get("responseAssertions") : null
+                }
+        };
+    }
 }
