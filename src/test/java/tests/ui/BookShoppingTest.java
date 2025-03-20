@@ -15,7 +15,6 @@ public class BookShoppingTest extends BaseTest {
     private ShoppingCartPage shoppingCartPage;
     private SignInPage signInPage;
 
-
     @BeforeMethod
     public void setUp(){
         searchComponentPage = new SearchComponentPage();
@@ -23,7 +22,6 @@ public class BookShoppingTest extends BaseTest {
         bookPage = new BookPage();
         shoppingCartPage = new ShoppingCartPage();
         signInPage = new SignInPage();
-
     }
 
     @Test(description = "verify the searched results are related to the book searched",
@@ -128,6 +126,17 @@ public class BookShoppingTest extends BaseTest {
         shoppingCartPage.proceedToCheckoutWithAddedBooks();
 
         Assert.assertTrue(signInPage.IsSignInPageTitleDisplayed(), "Sign In page is not displayed");
+    }
+
+    @Test(description = "Verify that the searched results in a new tab are related to the book searched",
+            dataProvider = "validBook",
+            dataProviderClass = TestDataProvider.class)
+    public void verifySearchedResultsInNewTabAreRelatedToTheSearching(String bookName, int minimumBooksShouldBeFound) {
+        searchComponentPage.searchInNewTab(bookName, baseURL);
+        long numberOfBooksByTitle = searchedResultsPage.numberOfBooksByTitle(bookName);
+        Assert.assertTrue(numberOfBooksByTitle >= minimumBooksShouldBeFound,
+                "The number of books found should be at least " + minimumBooksShouldBeFound +
+                        " but it was " + numberOfBooksByTitle);
     }
 
 }
