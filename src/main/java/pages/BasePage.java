@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.DriverManager;
 import java.time.Duration;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 public abstract class BasePage {
     private static final long DEFAULT_WAIT_IN_SECONDS = 10;
@@ -20,8 +21,6 @@ public abstract class BasePage {
 
     protected final WebDriver driver;
     protected final WebDriverWait wait;
-
-
 
     public BasePage() {
         this.driver = DriverManager.getDriver();
@@ -76,7 +75,6 @@ public abstract class BasePage {
         } catch (StaleElementReferenceException | NoSuchElementException e) {
             clickElementAfterRefresh(element);
         }
-
     }
 
     public void scrollToElement(WebElement element) {
@@ -84,7 +82,7 @@ public abstract class BasePage {
         actions.scrollToElement(element).perform();
     }
 
-    public  void forceClick(WebElement element) {
+    public void forceClick(WebElement element) {
         try {
             JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
             jsExecutor.executeScript("arguments[0].click();", element);
@@ -93,4 +91,30 @@ public abstract class BasePage {
         }
     }
 
+    public void openNewTab() {
+        ((JavascriptExecutor) driver).executeScript("window.open()");
+    }
+
+    public void switchToNewTab() {
+        String originalWindow = driver.getWindowHandle();
+        Set<String> windowHandles = driver.getWindowHandles();
+        for (String handle : windowHandles) {
+            if (!handle.equals(originalWindow)) {
+                driver.switchTo().window(handle);
+                break;
+            }
+        }
+    }
+
+    public void closeCurrentTabAndSwitchBack() {
+        String closedTab = driver.getWindowHandle();
+        driver.close();
+        Set<String> windowHandles = driver.getWindowHandles();
+        for (String handle : windowHandles) {
+            if (!handle.equals(closedTab)) {
+                driver.switchTo().window(handle);
+                break;
+            }
+        }
+    }
 }

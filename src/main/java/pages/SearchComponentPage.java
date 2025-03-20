@@ -38,4 +38,12 @@ public class SearchComponentPage extends BasePage {
     public void clickCartButton() {
         waitForClickAbilityOf(cartButton).click();
     }
+
+    public void searchInNewTab(String textToSearch, String url) {
+        openNewTab();
+        switchToNewTab();
+        driver.get(url);
+        search(textToSearch);
+    }
+
 }
